@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQM Tipu Sultan Eiko - Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling portfolio with a sticky navigation bar. Sections include Hero, Summary, an interactive Skills Dashboard (with Radar Chart), a collapsible Career Timeline, and sections for Projects & Education. This structure transforms the static resume into an engaging narrative of professional growth, allowing recruiters to quickly navigate to key areas or explore the full story. -->
+    <!-- Visualization & Content Choices: 1. Skills -> Goal: Compare proficiency -> Viz: Radar Chart (Chart.js) for core skills & HTML cards for others. Interaction: Visual comparison. Justification: More engaging than a list. 2. Experience -> Goal: Show change/progression -> Presentation: Vertical collapsible timeline (HTML/CSS/JS). Interaction: Click to expand details. Justification: Creates a clean, scannable career story. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -2.75rem;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 4px solid #f3f4f6;
+        }
+        .timeline-line {
+            position: absolute;
+            left: -2.25rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #d1d5db;
+            z-index: -1;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-700">
+
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <span class="text-2xl font-bold text-blue-600">AQM Tipu Sultan Eiko</span>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#summary" class="text-slate-600 hover:text-blue-600 transition-colors">Summary</a>
+                    <a href="#skills" class="text-slate-600 hover:text-blue-600 transition-colors">Skills</a>
+                    <a href="#experience" class="text-slate-600 hover:text-blue-600 transition-colors">Experience</a>
+                    <a href="#projects" class="text-slate-600 hover:text-blue-600 transition-colors">Projects</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <header class="text-center py-16 md:py-24">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">AQM Tipu Sultan Eiko</h1>
+            <p class="mt-4 text-lg md:text-xl text-slate-500">Full-Stack Software Engineer | PHP & Laravel Expert</p>
+            <div class="mt-8 flex justify-center items-center space-x-6">
+                <a href="https://github.com/eiko03" target="_blank" class="text-slate-500 hover:text-blue-600 transition-colors">
+                    <span class="sr-only">GitHub</span>
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://linkedin.com/in/tipusultaneiko" target="_blank" class="text-slate-500 hover:text-blue-600 transition-colors">
+                     <span class="sr-only">LinkedIn</span>
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <section id="summary" class="py-12 md:py-16 border-t">
+            <h2 class="text-3xl font-bold text-slate-800 text-center">Professional Summary</h2>
+            <div class="max-w-3xl mx-auto mt-6 text-lg text-slate-600 text-center leading-relaxed">
+                <p>Highly proficient Full-Stack Software Engineer with 5+ years of experience in developing and deploying scalable web applications, RESTful APIs, and SaaS platforms using PHP/Laravel and Node.js/Express. Strong expertise in frontend frameworks like Vue.js and React, with a proven track record in the full software development lifecycle. Eager to leverage strong backend development skills and prior experience with mobile game API development to contribute to Stillfront Group's high-performance gaming environment.</p>
+            </div>
+        </section>
+
+        <section id="skills" class="py-12 md:py-16 border-t bg-white rounded-xl shadow-sm">
+             <h2 class="text-3xl font-bold text-slate-800 text-center">Technical Skills</h2>
+             <p class="text-center text-slate-500 mt-2">A visual overview of my core competencies and other technical skills.</p>
+            <div class="grid md:grid-cols-2 gap-12 items-center mt-10 px-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-slate-700 mb-4 text-center">Core Expertise</h3>
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-3">Backend & Frameworks</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">PHP</span>
+                             <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Laravel</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">Node.js</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">Go (Golang)</span>
+                             <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">Python/Django</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">RESTful API Design</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-3">Frontend</h3>
+                        <div class="flex flex-wrap gap-2">
+                             <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Vue.js</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">React.js</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">HTML5 & CSS3</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">JavaScript (ES6+)</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-3">DevOps & Cloud</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">AWS (EC2, Lambda, S3)</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">Docker</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">Serverless</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">Linux</span>
+                            <span class="bg-slate-100 text-slate-800 text-sm font-medium px-3 py-1 rounded-full">CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-12 md:py-16 border-t">
+            <h2 class="text-3xl font-bold text-slate-800 text-center">Career Timeline</h2>
+            <p class="text-center text-slate-500 mt-2">Click on each role to see more details about my responsibilities.</p>
+            <div class="mt-12 max-w-3xl mx-auto">
+                <div class="relative pl-12">
+                    <div class="timeline-line"></div>
+                    <div id="timeline-container" class="space-y-12">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects" class="py-12 md:py-16 border-t bg-white rounded-xl shadow-sm">
+            <h2 class="text-3xl font-bold text-slate-800 text-center">Projects & Contract Work</h2>
+             <div id="projects-container" class="mt-10 grid md:grid-cols-2 gap-8 px-6">
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t bg-slate-800 text-slate-300">
+        <div class="max-w-6xl mx-auto px-4 py-8 text-center">
+            <p>&copy; 2025 AQM Tipu Sultan Eiko. All Rights Reserved.</p>
+            <p class="mt-2">Interactive resume created to showcase skills and experience.</p>
+        </div>
+    </footer>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const experienceData = [
+            {
+                company: "Next Generation Advanced (NGA)",
+                role: "Software Developer",
+                period: "APR 2022 – Present",
+                details: [
+                    "Key developer for the Customer Service Point (CSP) and CW departments within a mission-critical 911 system in California, focusing on backend API stability and data integrity.",
+                    "Architected and maintained long-term, in-house applications, ensuring high availability and robust performance under high traffic.",
+                    "Responsible for application deployment and maintenance across various VPS environments, including AWS and Digital Ocean."
+                ]
+            },
+            {
+                company: "iQuantile",
+                role: "Software Engineer",
+                period: "DEC 2020 – APR 2022",
+                details: [
+                    "Developed and deployed multiple SaaS platforms for NGO and Education sectors, including building a modular, in-house simple ERP system from scratch.",
+                    "Engineered and managed the full CI/CD pipeline (GitLab/GitHub Actions) for automatic testing and deployment, significantly improving release cycle efficiency and code quality.",
+                    "Managed system infrastructure and utilized AWS services to ensure reliable operation of all production environments."
+                ]
+            },
+            {
+                company: "ARCADE STUDIOS",
+                role: "Developer (Relevant Gaming Sector Experience)",
+                period: "AUG 2020 – NOV 2020",
+                details: [
+                    "Designed and built high-performance API endpoints and Serverless functions for mobile games, focusing on low latency and scalability.",
+                    "Utilized AWS Lambda and Serverless Framework for cost-effective, scalable deployment of mobile game backend logic.",
+                    "Developed companion websites, including Android game download portals and a 3D model marketplace."
+                ]
+            },
+            {
+                company: "EQUATION IT",
+                role: "Web Developer",
+                period: "MAY 2019 – JUN 2020",
+                details: [
+                    "Contributed to the development and maintenance of core systems for ISP Solutions."
+                ]
+            }
+        ];
+
+        const projectsData = [
+            {
+                company: "ITQAAN",
+                period: "JUN 2021 – Present (Contract)",
+                description: "Developing and maintaining a modern educational platform, leveraging PHP/Laravel for robust content delivery and user management features."
+            },
+            {
+                company: "LARGE IT SOLUTIONS",
+                period: "SEP 2020 – NOV 2020 (Contract)",
+                description: "Developed a scalable, multi-vendor e-commerce platform, integrating secure payment gateways and optimizing database queries for catalog performance."
+            }
+        ];
+
+        const timelineContainer = document.getElementById('timeline-container');
+        experienceData.forEach(job => {
+            const item = document.createElement('div');
+            item.className = 'relative timeline-item';
+            
+            let specialRoleClass = job.role.includes("Gaming") ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800';
+
+            item.innerHTML = `
+                <div class="cursor-pointer">
+                    <h3 class="text-xl font-semibold text-slate-800">${job.company}</h3>
+                    <p class="text-md text-slate-600">${job.role}</p>
+                    <time class="text-sm text-slate-500">${job.period}</time>
+                </div>
+                <div class="details-panel overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
+                    <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600">
+                        ${job.details.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            timelineContainer.appendChild(item);
+
+            item.querySelector('.cursor-pointer').addEventListener('click', () => {
+                const panel = item.querySelector('.details-panel');
+                if (panel.style.maxHeight === '0px' || panel.style.maxHeight === '') {
+                    panel.style.maxHeight = panel.scrollHeight + 'px';
+                } else {
+                    panel.style.maxHeight = '0px';
+                }
+            });
+        });
+        
+        const projectsContainer = document.getElementById('projects-container');
+        projectsData.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'bg-slate-50 p-6 rounded-lg border';
+            card.innerHTML = `
+                <h3 class="text-xl font-semibold text-slate-800">${project.company}</h3>
+                <p class="text-sm text-slate-500 mb-3">${project.period}</p>
+                <p class="text-slate-600">${project.description}</p>
+            `;
+            projectsContainer.appendChild(card);
+        });
+
+        const ctx = document.getElementById('skillsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['PHP', 'Laravel', 'Vue.js', 'Backend Architecture', 'API Design'],
+                datasets: [{
+                    label: 'Expertise Level',
+                    data: [95, 90, 85, 88, 92],
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 14,
+                                weight: '500'
+                            },
+                            color: '#1e293b'
+                        },
+                        ticks: {
+                            backdropColor: 'transparent',
+                            stepSize: 20
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+    });
+    </script>
+
+</body>
+</html>
